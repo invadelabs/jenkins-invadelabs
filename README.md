@@ -14,7 +14,7 @@ mkdir -p /home/drew/jenkins_home
 docker run --name jenkins-invadelabs \
 -p 8081:8080 \
 -p 50000:50000 \
--v /home/drew/jenkins_home1:/var/jenkins_home \
+-v /home/drew/jenkins_home:/var/jenkins_home \
 -v /usr/bin/docker:/usr/bin/docker \
 -v /var/run/docker.sock:/var/run/docker.sock \
 --env JAVA_OPTS="-Dhudson.footerURL=https://build.invadelabs.com/ -Djenkins.install.runSetupWizard=false" \
