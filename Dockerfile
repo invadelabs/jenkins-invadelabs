@@ -5,3 +5,5 @@ RUN apt-get update && apt-get install -y libltdl7 # docker dependency
 USER jenkins
 COPY plugins_docker.txt /usr/share/jenkins/ref/plugins.txt
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
+
+# RUN /var/jenkins_home/war/WEB-INF/jenkins-cli.jar
