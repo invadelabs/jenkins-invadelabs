@@ -4,23 +4,22 @@ Jenkins container for invadelabs.
 
 ## Build it
 ```
-docker build -t jenkins-invadelabs:0.0.2 .
+docker build -t jenkins-invadelabs:0.0.3 .
 ```
 
 ## Run it
 ```
 mkdir -p /home/drew/jenkins_home
 
-!! XXX change ports back !! # here look for 1
-docker run --name jenkins-invadelabs1 \
--p 8083:8080 \
--p 50001:50000 \
+docker run --name jenkins-invadelabs \
+-p 8081:8080 \
+-p 50000:50000 \
 -v /home/drew/jenkins_home1:/var/jenkins_home \
 -v /usr/bin/docker:/usr/bin/docker \
 -v /var/run/docker.sock:/var/run/docker.sock \
 --env JAVA_OPTS="-Dhudson.footerURL=https://build.invadelabs.com/ -Djenkins.install.runSetupWizard=false" \
 -d \
-jenkins-invadelabs:0.0.2
+jenkins-invadelabs:0.0.3
 ```
 
 ## Start after reboot
@@ -28,18 +27,20 @@ jenkins-invadelabs:0.0.2
 docker start jenkins-invadelabs
 ```
 
-## Old / notes
+## Notes / Old
 
 ### Upstream containers
 ```
 FROM debian:jessie
+FROM buildpack-deps:jessie-scm
 FROM openjdk:8-jdk
+FROM jenkins/jenkins:lts
 ```
 
 ### From original docs
 ```
 docker run --name jenkins-invadelabs \
--p 8082:8080 \
+-p 8080:8080 \
 -p 50000:50000 \
 -v /home/drew/jenkins_home:/var/jenkins_home \
 jenkins/jenkins:lts
@@ -65,6 +66,7 @@ unix:///var/run/docker.sock
 Need docker.sock accessible by jenkins user.
 ```
 docker exec --user root -it jenkins-invadelabs1 /bin/sh
-(3) in container .bash_profile file add
-chown -R jenkins:jenkins /var/run/docker.sock
+# both chown and chmod are badly insecure in this case :(
+# chown jenkins:jenkins /var/run/docker.sock
+chmod 777 /var/run/docker.sock
 ```
