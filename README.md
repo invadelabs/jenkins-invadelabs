@@ -22,29 +22,13 @@ docker run --name jenkins-invadelabs \
 jenkins-invadelabs:0.0.3
 ```
 
-## Start after reboot
+## Start it
+After a stop of the container or reboot of host system:
 ```
 docker start jenkins-invadelabs
 ```
 
 ## Notes / Old
-
-### Upstream containers
-```
-FROM debian:jessie
-FROM buildpack-deps:jessie-scm
-FROM openjdk:8-jdk
-FROM jenkins/jenkins:lts
-```
-
-### From original docs
-```
-docker run --name jenkins-invadelabs \
--p 8080:8080 \
--p 50000:50000 \
--v /home/drew/jenkins_home:/var/jenkins_home \
-jenkins/jenkins:lts
-```
 
 ### Fedora 27
 Issues with fedora using unix socket fd:// and tcp:// - there can only be one!
